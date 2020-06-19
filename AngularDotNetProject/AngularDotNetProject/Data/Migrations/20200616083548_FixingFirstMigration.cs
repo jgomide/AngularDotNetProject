@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AngularDotNetProject.Data.Migrations
+namespace AngularDotNetProject.API.Data.Migrations
 {
     public partial class FixingFirstMigration : Migration
     {

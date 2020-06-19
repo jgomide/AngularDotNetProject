@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AngularDotNetProject.Domain
+namespace AngularDotNetProject.API.Domain
 {
     public class Event
     {

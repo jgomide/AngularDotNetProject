@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AngularDotNetProject.Data.Migrations
+namespace AngularDotNetProject.API.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

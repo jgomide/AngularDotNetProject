@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AngularDotNetProject.Data;
-using AngularDotNetProject.Domain;
+using AngularDotNetProject.API.Data;
+using AngularDotNetProject.API.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 
-namespace AngularDotNetProject.Controllers
+namespace AngularDotNetProject.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

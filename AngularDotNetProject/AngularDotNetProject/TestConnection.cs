@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AngularDotNetProject.Data;
+﻿using AngularDotNetProject.API.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace AngularDotNetProject

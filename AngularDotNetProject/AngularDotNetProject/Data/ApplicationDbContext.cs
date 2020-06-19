@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using AngularDotNetProject.Domain;
+using AngularDotNetProject.API.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-
-namespace AngularDotNetProject.Data
+    
+namespace AngularDotNetProject.API.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
