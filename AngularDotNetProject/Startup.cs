@@ -31,9 +31,14 @@ namespace AngularDotNetProject
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddScoped<ITestConnection,TestConnection>();
+
             //services.AddControllersWithViews();
+            
             services.AddRazorPages();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
@@ -67,6 +72,7 @@ namespace AngularDotNetProject
 
                 //app.UseMvc();
             });
+
         }
     }
 }

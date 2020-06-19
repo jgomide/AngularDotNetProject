@@ -3,7 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AngularDotNetProject.Data;
+using AngularDotNetProject.Domain;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace AngularDotNetProject.Controllers
 {
@@ -11,22 +16,41 @@ namespace AngularDotNetProject.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        /*[HttpGet("user")]
-        public IActionResult Get()
+        private readonly ApplicationDbContext _context;
+
+        public ValuesController(ApplicationDbContext context)
         {
-            return Ok(new {name = "Nick"});
-        }*/
+            _context = context;
+        }
 
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<IActionResult> GetEventsAsync()
         {
-            return new string[] {"value1", "value2"};
+            try
+            {
+                var result = await _context.Events.ToListAsync();
+
+                return Ok(result);  
             }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Consult failed");
+            }
+        }
 
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<ActionResult> GetEventByIdAsync(int id)
         {
-            return "value";
-        }
+            try
+            {
+                var result = await _context.Events.FirstOrDefaultAsync(x => x.EventId == id);
+
+                return Ok(result);
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Consult failed");
+            }
+}
     }
 }
