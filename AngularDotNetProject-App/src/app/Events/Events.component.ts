@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-Events',
+  selector: 'app-events',
   templateUrl: './Events.component.html',
   styleUrls: ['./Events.component.css']
 })
