@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AngularDotNetProject.API.Data;
-using AngularDotNetProject.API.Domain;
+﻿using System.Threading.Tasks;
+using AngularDotNetProject.Repository.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
+
 
 namespace AngularDotNetProject.API.Controllers
 {

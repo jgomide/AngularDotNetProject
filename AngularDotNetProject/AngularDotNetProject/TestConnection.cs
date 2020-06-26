@@ -1,7 +1,7 @@
-﻿using AngularDotNetProject.API.Data;
+﻿using AngularDotNetProject.Repository.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace AngularDotNetProject
+namespace AngularDotNetProject.API
 {
     public class TestConnection : ITestConnection
     {

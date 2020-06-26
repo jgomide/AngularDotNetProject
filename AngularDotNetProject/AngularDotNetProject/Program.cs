@@ -1,8 +1,7 @@
-using AngularDotNetProject.API;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace AngularDotNetProject
+namespace AngularDotNetProject.API
 {
     public class Program
     {
@@ -17,6 +16,7 @@ namespace AngularDotNetProject
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseUrls("http://localhost:5000","https://localhost:5001","http://0.0.0.0:5002");
                     webBuilder.UseStartup<Startup>();
                 });
 

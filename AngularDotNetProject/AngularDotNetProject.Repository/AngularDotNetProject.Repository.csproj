@@ -1,12 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
-
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>aspnet-AngularDotNetProject-1D3983E6-CCBE-43B9-B0F5-F980B2618C44</UserSecretsId>
-  </PropertyGroup>
+<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
@@ -18,13 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="wwwroot\img\" />
+    <ProjectReference Include="..\AngularDotNetProject.Domain\AngularDotNetProject.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AngularDotNetProject.Domain\AngularDotNetProject.Domain.csproj" />
-    <ProjectReference Include="..\AngularDotNetProject.Repository\AngularDotNetProject.Repository.csproj" />
-  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
 
 </Project>
