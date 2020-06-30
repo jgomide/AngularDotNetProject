@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using AngularDotNetProject.Domain.Domain;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +12,7 @@ namespace AngularDotNetProject.Repository.Repository
         public Repository(ApplicationDbContext context)
         {
             _context = context;
+            _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         //GENERIC
@@ -35,6 +32,7 @@ namespace AngularDotNetProject.Repository.Repository
         {
             return (await _context.SaveChangesAsync()) > 0;
         }
+
         //EVENT
         public async Task<Event[]> GetAllEventAsync(bool includeHeadline = false)
         {
@@ -54,7 +52,7 @@ namespace AngularDotNetProject.Repository.Repository
             return await query.ToArrayAsync();
 
         }
-        public async Task<Event> GetEventAsyncById(int eventId, bool includeHeadline = false)
+        public async Task<Event> GetEventByIdAsync(int eventId, bool includeHeadline = false)
         {
             IQueryable<Event> query = _context.Events
                 .Include(e => e.Releases)
@@ -73,7 +71,7 @@ namespace AngularDotNetProject.Repository.Repository
 
             return await query.FirstOrDefaultAsync();
         }
-        public async Task<Event[]> GetAllEventAsyncByName(string name, bool includeHeadline = false)
+        public async Task<Event[]> GetAllEventByNameAsync(string name, bool includeHeadline = false)
         {
             IQueryable<Event> query = _context.Events
                 .Include(e => e.Releases)
@@ -92,8 +90,9 @@ namespace AngularDotNetProject.Repository.Repository
 
             return await query.ToArrayAsync();
         }
+
         //HEADLINE
-        public async Task<Headline> GetHeadlineAsync(int headlineId, bool includeEvent = false)
+        public async Task<Headline> GetHeadlineByIdAsync(int headlineId, bool includeEvent = false)
         {
             IQueryable<Headline> query = _context.Headlines
                 .Include(h => h.SocialNetworks);
@@ -110,7 +109,7 @@ namespace AngularDotNetProject.Repository.Repository
 
             return await query.FirstOrDefaultAsync();
         }
-        public async Task<Headline[]> GetAllHeadlineAsyncByName(string name, bool includeEvent = false)
+        public async Task<Headline[]> GetAllHeadlineByNameAsync(string name, bool includeEvent = false)
         {
             IQueryable<Headline> query = _context.Headlines
                 .Include(h => h.SocialNetworks);

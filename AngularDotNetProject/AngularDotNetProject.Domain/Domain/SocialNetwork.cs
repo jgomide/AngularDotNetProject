@@ -10,8 +10,8 @@ namespace AngularDotNetProject.Domain.Domain
         public string Name { get; set; }
         public string URL { get; set; }
         public int? EventId { get; set; }
-        public Event Event { get; set; }
+        public Event Event { get; }
         public int? HeadlineId { get; set; }
-        public Headline Headline { get; set; }
+        public Headline Headline { get; }
     }
 }

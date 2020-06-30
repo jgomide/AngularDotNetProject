@@ -12,12 +12,12 @@ namespace AngularDotNetProject.Repository.Repository
         Task<bool> SaveChangesAsync();
 
         //EVENTS
-        Task<Event[]> GetAllEventAsyncByName(string name, bool includeHeadline);
+        Task<Event[]> GetAllEventByNameAsync(string name, bool includeHeadline);
         Task<Event[]> GetAllEventAsync(bool includeHeadline);
-        Task<Event> GetEventAsyncById(int eventId, bool includeHeadline);
+        Task<Event> GetEventByIdAsync(int eventId, bool includeHeadline);
 
         //HEADLINE
-        Task<Headline> GetHeadlineAsync(int headlineId, bool includeEvent);
-        Task<Headline[]> GetAllHeadlineAsyncByName(string name, bool includeEvent);
+        Task<Headline> GetHeadlineByIdAsync(int headlineId, bool includeEvent);
+        Task<Headline[]> GetAllHeadlineByNameAsync(string name, bool includeEvent);
     }
 }

@@ -13,6 +13,6 @@ namespace AngularDotNetProject.Domain.Domain
         public DateTime? DateMax { get; set; }
         public int Quantity { get; set; }
         public int EventId { get; set; }
-        public Event Event { get; set; }
+        public Event Event { get; }
     }
 }

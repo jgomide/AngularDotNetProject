@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AngularDotNetProject.Repository.Repository;
+    
 
 namespace AngularDotNetProject.API
 {
@@ -30,13 +31,13 @@ namespace AngularDotNetProject.API
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<ITestConnection,TestConnection>();
-
-            //services.AddControllersWithViews();
-            
-            services.AddRazorPages();
+            services.AddScoped<IRepository, Repository.Repository.Repository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddCors();
+
+            //services.AddControllersWithViews();
+            //services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

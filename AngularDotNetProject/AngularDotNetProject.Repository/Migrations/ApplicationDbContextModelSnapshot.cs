@@ -32,8 +32,8 @@ namespace AngularDotNetProject.Repository.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EventDate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("EventDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ImageURL")
                         .HasColumnType("nvarchar(max)");
@@ -374,7 +374,7 @@ namespace AngularDotNetProject.Repository.Migrations
 
             modelBuilder.Entity("AngularDotNetProject.Domain.Domain.Release", b =>
                 {
-                    b.HasOne("AngularDotNetProject.Domain.Domain.Event", "Event")
+                    b.HasOne("AngularDotNetProject.Domain.Domain.Event", null)
                         .WithMany("Releases")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -383,11 +383,11 @@ namespace AngularDotNetProject.Repository.Migrations
 
             modelBuilder.Entity("AngularDotNetProject.Domain.Domain.SocialNetwork", b =>
                 {
-                    b.HasOne("AngularDotNetProject.Domain.Domain.Event", "Event")
+                    b.HasOne("AngularDotNetProject.Domain.Domain.Event", null)
                         .WithMany("SocialNetworks")
                         .HasForeignKey("EventId");
 
-                    b.HasOne("AngularDotNetProject.Domain.Domain.Headline", "Headline")
+                    b.HasOne("AngularDotNetProject.Domain.Domain.Headline", null)
                         .WithMany("SocialNetworks")
                         .HasForeignKey("HeadlineId");
                 });
