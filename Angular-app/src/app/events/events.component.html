@@ -1,9 +1,7 @@
 <div class="form-inline">
   <div class="form-group mb-2">
     <label class="mr-2">Search:</label>
-    <input type="text"
-      class="form-control mr-2"
-      placeholder="Search"
+    <input type="text" class="form-control mr-2" placeholder="Search"
       [(ngModel)]="filterList">    
      
   </div>
@@ -15,7 +13,7 @@
       <th>
         <button class="btn btn-outline-primary"
         (click)="showImage()">          
-          Image
+        <i class="{{showImage ? 'fa fa-eye-slash' : 'fa fa-eye'}}"></i>
         </button>
       </th>
       <th>#</th>
@@ -29,27 +27,34 @@
     </tr>
   </thead>
   <tbody *ngIf="events && events.length">
-    <tr *ngFor="let event of filteredEvents">      
+    <tr *ngFor="let event of filteredEvents">            
       <td>
         <img *ngIf="imageOnOff"
-         src="http://desktop-2:5002/img/{{event.imagemUrl}}"               
+         src="http://desktop-2:5002/img/{{event.imageURL}}"               
         [style.width.px]="imageWidth"
         [style.margin.px]="imageMargin">
       </td> 
       <td>{{event.eventId}}</td> 
       <td>{{event.name}}</td>
       <td>{{event.type}}</td>
-      <td>{{event.eventDate}}</td>
+      <td>{{event.eventDate | DateTimeFormatPipe}}</td>
       <td>{{event.location}}</td>
       <td>{{event.capacity}}</td>
-      <td>{{event.release | uppercase}}</td>
+      <td>         
+        <div *ngIf="event.release?.length == 0">
+          Not Available
+        </div>
+        <div *ngIf="event.release?.length > 0">
+          {{event.release[0].name | json}} 
+        </div> 
+      </td>
       <td>
         <button class="class btn btn-success"></button>
         <button class="class btn btn-danger"></button>
-      </td>
+      </td>      
     </tr>
   </tbody>
-  <tfoot *ngIf="!events.length">
+  <tfoot *ngIf="events?.length == 0">
     <tr>
       <td colspan="7" class="text-center">
         <h4>
