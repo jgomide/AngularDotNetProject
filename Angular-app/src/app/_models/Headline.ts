@@ -8,8 +8,8 @@ export interface Headline {
     imageURL: string; 
     phone: string; 
     email: string; 
-    headlineEvent: Event[]
-    socialNetwork: SocialNetwork[]
+    headlineEvents: Event[]
+    socialNetworks: SocialNetwork[]
 
 }
 

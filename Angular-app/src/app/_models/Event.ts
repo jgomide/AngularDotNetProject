@@ -12,7 +12,7 @@ export interface Event {
     imageURL: string 
     phone: string;
     email: string;
-    release: Release[]
-    socialNetwork: SocialNetwork[]
-    headlineEvent: Headline[]
+    releases: Release[]
+    socialNetworks: SocialNetwork[]
+    headlineEvents: Headline[]
 }

@@ -41,16 +41,22 @@
       <td>{{event.location}}</td>
       <td>{{event.capacity}}</td>
       <td>         
-        <div *ngIf="event.release?.length == 0">
+        <div *ngIf="event.releases?.length == 0">
           Not Available
         </div>
-        <div *ngIf="event.release?.length > 0">
-          {{event.release[0].name | json}} 
+        <div *ngIf="event.releases?.length > 0">
+          {{event.releases[0].name | json}} 
         </div> 
       </td>
       <td>
-        <button class="class btn btn-success"></button>
-        <button class="class btn btn-danger"></button>
+        <div class="btn-group">
+          <button class="btn btn-sm btn-success" tooltip="Change" (click)="openModal(template)">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button class="btn btn-sm btn-danger" tooltip="Remove">
+            <i class="fa fa-eraser"></i>
+          </button>
+        </div>
       </td>      
     </tr>
   </tbody>
@@ -65,6 +71,66 @@
   </tfoot>
 </table>  
 
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" 
+     arial-label="Close" (click)="modalRef.hide()">
+     <span arial-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    This is a modal.
+  </div>
+</ng-template>
+
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <label>Tema</label>
+      <input type="text" class="form-control">
+    </div>
+  </div>  
+  <div class="form-row">
+    <div class="form-group col-md-8">
+      <label>Local</label>
+      <input type="text" class="form-control">
+    </div>
+    <div class="form-group col-md-4">
+      <label>Data e Hora</label>
+      <input type="text" class="form-control">
+    </div>
+  </div>  
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label>Qtd Pessoas</label>
+      <input type="text" class="form-control">
+    </div>
+    <div class="form-group col-md-9">
+      <label>Imagem</label>
+      <input type="text" class="form-control">
+    </div>
+  </div>  
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label>Telefone</label>
+      <input type="text" class="form-control">
+    </div>
+    <div class="form-group col-md-8">
+      <label>Email</label>
+      <input type="text" class="form-control">
+    </div>
+  </div> 
+</form>
+<br>
+<button class="btn btn-secondary" (click)="openModal(template)">
+  Fechar
+</button>
+<button class="btn btn-primary" (click)="salvarAlteracao()">
+  Salvar Alterações
+</button>
+<br>
+<br>
 
 
 
