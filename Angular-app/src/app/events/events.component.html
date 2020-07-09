@@ -84,50 +84,107 @@
   </div>
 </ng-template>
 
-<form>
+<form [formGroup]="registerForm" >
   <div class="form-row">
-    <div class="form-group col-md-12">
-      <label>Tema</label>
-      <input type="text" class="form-control">
+    <div class="form-group col-md-4">
+      <label>Type</label>
+      <input type="text" class="form-control" 
+      [ngClass]="{'is-invalid': registerForm.get('type').errors && registerForm.get('type').touched}"
+      placeholder="Insert Type" formControlName="type">
+      <div *ngIf="registerForm.get('type').hasError('required')
+      && registerForm.get('type').touched" class="invalid-feedback">
+      Type is mandatory.
+      </div>
+      <div *ngIf="registerForm.get('type').hasError('minlength')
+       && registerForm.get('type').touched" class="invalid-feedback">
+      Must have minimum 4 characteres.
+      </div>
+      <div *ngIf="registerForm.get('type').hasError('maxlength')
+       && registerForm.get('type').touched" class="invalid-feedback">
+      Must have maximum 50 characteres
+      </div>
+    </div>
+    <div class="form-group col-md-8">
+      <label>Name</label>
+      <input type="text" class="form-control" placeholder="Insert Name" formControlName="name"
+      [ngClass]="{'is-invalid': registerForm.get('name').errors && registerForm.get('name').touched}">
+      <div *ngIf="registerForm.get('name').hasError('required') 
+       && registerForm.get('name').touched"   class="invalid-feedback">        
+      Name is mandatory.
+      </div>
     </div>
   </div>  
   <div class="form-row">
     <div class="form-group col-md-8">
-      <label>Local</label>
-      <input type="text" class="form-control">
+      <label>Location</label>
+      <input type="text" class="form-control" placeholder="Insert Location" formControlName="location"
+      [ngClass]="{'is-invalid': registerForm.get('location').errors && registerForm.get('location').touched}">
+      <div *ngIf="registerForm.get('location').hasError('required') 
+       && registerForm.get('location').touched" class="invalid-feedback">
+        Location is mandatory.
+      </div>
+      <div *ngIf="registerForm.get('location').hasError('max()') 
+       && registerForm.get('location').touched" class="invalid-feedback">
+        Must have maximum 10.
+      </div>
     </div>
     <div class="form-group col-md-4">
-      <label>Data e Hora</label>
-      <input type="text" class="form-control">
+      <label>Date/Time</label>
+      <input type="text" class="form-control" placeholder="Insert Date/Time" formControlName="eventDate"
+      [ngClass]="{'is-invalid': registerForm.get('eventDate').errors && registerForm.get('eventDate').touched}">
+      <div *ngIf="registerForm.get('eventDate').hasError('required') 
+       && registerForm.get('eventDate').touched" class="invalid-feedback">
+        Date/Time is mandatory.
+      </div>
     </div>
   </div>  
   <div class="form-row">
     <div class="form-group col-md-3">
-      <label>Qtd Pessoas</label>
-      <input type="text" class="form-control">
+      <label>Capacity</label>
+      <input type="text" class="form-control" placeholder="Insert Capacity" formControlName="capacity"
+       [ngClass]="{'is-invalid': registerForm.get('capacity').errors && registerForm.get('capacity').touched}">
+      <div *ngIf="registerForm.get('capacity').hasError('required')
+       && registerForm.get('capacity').touched" class="invalid-feedback">
+       Capacity is mandatory.
+      </div>
     </div>
     <div class="form-group col-md-9">
-      <label>Imagem</label>
-      <input type="text" class="form-control">
+      <label>Image</label>
+      <input type="text" class="form-control" placeholder="Insert Image" formControlName="imageURL"
+       [ngClass]="{'is-invalid': registerForm.get('imageURL').errors && registerForm.get('imageURL').touched}">
+      <div *ngIf="registerForm.get('imageURL').hasError('required') 
+       && registerForm.get('imageURL').touched" class="invalid-feedback">
+        Image is mandatory.
+      </div>
     </div>
   </div>  
   <div class="form-row">
     <div class="form-group col-md-4">
-      <label>Telefone</label>
-      <input type="text" class="form-control">
+      <label>Phone</label>
+      <input type="text" class="form-control is-invalid" placeholder="Insert Phone" formControlName="phone"
+        [ngClass]="{'is-invalid': registerForm.get('phone').errors && registerForm.get('phone').touched}">
+      <div *ngIf="registerForm.get('phone').hasError('required') 
+        && registerForm.get('phone').touched" class="invalid-feedback">
+        Phone is mandatory.
+      </div>
     </div>
     <div class="form-group col-md-8">
-      <label>Email</label>
-      <input type="text" class="form-control">
+      <label>E-mail</label>
+      <input type="text" class="form-control is-invalid" placeholder="Insert E-mail" formControlName="email"
+        [ngClass]="{'is-invalid': registerForm.get('email').errors && registerForm.get('email').touched}">
+      <div *ngIf="registerForm.get('email').hasError('required') 
+        && registerForm.get('email').touched" class="invalid-feedback">
+        E-mail is mandatory.
+      </div>
     </div>
   </div> 
 </form>
 <br>
 <button class="btn btn-secondary" (click)="openModal(template)">
-  Fechar
+  Close
 </button>
-<button class="btn btn-primary" (click)="salvarAlteracao()">
-  Salvar Alterações
+<button class="btn btn-primary" (click)="saveChanges()">
+  Save Changes
 </button>
 <br>
 <br>

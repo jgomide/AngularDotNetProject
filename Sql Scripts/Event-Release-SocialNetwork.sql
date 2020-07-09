@@ -17,4 +17,4 @@
     ON h.HeadlineId = s.HeadlineId
 	/*WHERE e.EventId = s.EventId*/	
 	ORDER BY h.HeadlineId
-	
+		

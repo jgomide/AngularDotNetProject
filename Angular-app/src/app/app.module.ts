@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule as HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -29,12 +29,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
    ],
    imports: [
       BrowserModule,
-      AppRoutingModule,
-      HttpClientModule,
-      FormsModule,
       BsDropdownModule.forRoot(),
       TooltipModule.forRoot(),
       ModalModule.forRoot(),
+      AppRoutingModule,
+      HttpClientModule,
+      FormsModule,
+      ReactiveFormsModule,
       NgbModule
    ],
    providers: [

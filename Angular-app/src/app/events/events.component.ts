@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { EventService } from '../_services/Event.service';
 import { Event } from '../_models/Event';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 @Component({
@@ -11,17 +12,19 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 })
 
 export class EventsComponent implements OnInit {
-
   
-  filteredEvents: Event[];
-  events: Event[];
-  
-  modalRef: BsModalRef;  
-
   imageWidth = 50;
   imageMargin = 2;
   imageOnOff = true;  
 
+  filteredEvents: Event[];
+  events: Event[];
+  
+  modalRef: BsModalRef;  
+  registerForm: FormGroup;
+  
+  
+  
   _filterList: string = '';  
  
   get filterList(): string{
@@ -42,6 +45,7 @@ export class EventsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.validation();
     this.getEvents();
   }
 
@@ -56,6 +60,24 @@ export class EventsComponent implements OnInit {
   showImage(){
     this.imageOnOff = !this.imageOnOff;    
   }
+
+  validation()  {
+    this.registerForm = new FormGroup({
+      type: new FormControl('',[Validators.required, Validators.minLength(4), Validators.maxLength(50)]),
+      name: new FormControl('',[Validators.required]),
+      location: new FormControl('',[Validators.required ]),
+      eventDate: new FormControl('',[Validators.required ]),
+      imageURL: new FormControl('',[Validators.required ]),
+      capacity: new FormControl('',[Validators.required, Validators.max(10000)]),
+      phone: new FormControl('',[Validators.required ]),
+      email: new FormControl('',[Validators.required, Validators.email])
+    });
+  }
+
+  saveChanges()  {
+
+  }
+
 
   getEvents(){
     this.eventService.getEventAll().subscribe(
