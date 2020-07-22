@@ -1,9 +1,13 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventService } from '../_services/Event.service';
 import { Event } from '../_models/Event';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { defineLocale, ptBrLocale } from 'ngx-bootstrap/chronos';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 
+
+defineLocale('pt-br', ptBrLocale)
 
 @Component({
   selector: 'app-events',
@@ -16,17 +20,18 @@ export class EventsComponent implements OnInit {
   imageWidth = 50;
   imageMargin = 2;
   imageOnOff = true;  
+  
+  saveOption = 'post';
+  bodyDeleteEvent = '';
+  _filterList: string = '';  
 
   filteredEvents: Event[];
   events: Event[];
+  event: Event;
   
   modalRef: BsModalRef;  
   registerForm: FormGroup;
   
-  
-  
-  _filterList: string = '';  
- 
   get filterList(): string{
     return this._filterList;
   }
@@ -37,16 +42,21 @@ export class EventsComponent implements OnInit {
 
   constructor(
     private eventService: EventService,
-    private modalService: BsModalService    
-    ) {}
-
-  openModal(template: TemplateRef<any>){
-    this.modalRef = this.modalService.show(template);
+    private modalService: BsModalService,
+    private formBuilder: FormBuilder,
+    private localService: BsLocaleService
+    ) {
+      this.localService.use('pt-br')
   }
 
   ngOnInit() {
     this.validation();
     this.getEvents();
+  }
+
+  openModal(templateModal: any){
+    this.registerForm.reset();
+    templateModal.show();
   }
 
   filterEvents(filterBy: string): Event[] {
@@ -61,24 +71,6 @@ export class EventsComponent implements OnInit {
     this.imageOnOff = !this.imageOnOff;    
   }
 
-  validation()  {
-    this.registerForm = new FormGroup({
-      type: new FormControl('',[Validators.required, Validators.minLength(4), Validators.maxLength(50)]),
-      name: new FormControl('',[Validators.required]),
-      location: new FormControl('',[Validators.required ]),
-      eventDate: new FormControl('',[Validators.required ]),
-      imageURL: new FormControl('',[Validators.required ]),
-      capacity: new FormControl('',[Validators.required, Validators.max(10000)]),
-      phone: new FormControl('',[Validators.required ]),
-      email: new FormControl('',[Validators.required, Validators.email])
-    });
-  }
-
-  saveChanges()  {
-
-  }
-
-
   getEvents(){
     this.eventService.getEventAll().subscribe(
       (_events: Event[]) => {
@@ -89,4 +81,73 @@ export class EventsComponent implements OnInit {
       console.log(error);
     });
   }
+
+  newEvent(templateModal: any){
+    this.saveOption = 'post';
+    this.openModal(templateModal);
+  }
+
+  editEvent(event: Event, template: any){
+    this.saveOption = 'put';
+    this.openModal(template);
+    this.event = event;
+    this.registerForm.patchValue(event);
+  }
+
+  deleteEvent(event: Event, template: any){
+    this.openModal(template);
+    this.event = event;
+    this.bodyDeleteEvent = `Confirm delete Event: ${event.name}, Cod: ${event.eventId}`; 
+  }  
+
+  confirmDeleteEvent(template: any){
+    this.eventService.deleteEvent(this.event.eventId).subscribe(
+      () => {
+        template.hide();
+        this.getEvents();        
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  cofirmSaveEvent(templateModal: any)  {
+    if (this.registerForm.valid) {
+      if (this.saveOption === 'post'){
+        this.event = Object.assign({}, this.registerForm.value);
+        this.eventService.postEvent(this.event).subscribe(
+          (newEvent: Event) => {            
+            templateModal.hide();
+            this.getEvents();          
+          }, error => {
+            console.log(error)
+          }
+        )
+      } else {
+        this.event = Object.assign({eventId: this.event.eventId}, this.registerForm.value);
+        this.eventService.putEvent(this.event).subscribe(
+          () => {          
+            templateModal.hide();
+            this.getEvents();          
+          }, error => {
+            console.log(error)
+          }
+        )
+      }     
+    } 
+  }
+
+  validation()  {
+    this.registerForm = this.formBuilder.group ({
+      type: ['',[Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      name: ['',[Validators.required]],
+      location: ['',[Validators.required ]],
+      eventDate: ['',[Validators.required ]],
+      imageURL: ['',[Validators.required ]],
+      capacity: ['',[Validators.required, Validators.max(10000)]],
+      phone: ['',[Validators.required ]],
+      email: ['',[Validators.required, Validators.email]]
+    });
+  }
+
 }
